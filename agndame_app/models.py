@@ -1,24 +1,27 @@
 from django.db import models
 
+# Clase para la categoria de los diferentes servicios
 class Category(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
         return self.name
 
+# Clase para los diferentes servicios
 class Service(models.Model):
     name = models.CharField(max_length=45)
 
     def __str__(self):
         return self.name
 
-
+# Clase para los diferentes trabajadores
 class Worker(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name 
 
+# Clase para las diferentes citas
 class Appointment(models.Model):
     name_client = models.CharField(max_length=100)
     lastname_client = models.CharField(max_length=100)
