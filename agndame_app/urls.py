@@ -1,8 +1,7 @@
-# mi_aplicacion/urls.py (si no existe, créalo)
-
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.book_appointment, name='book_appointment'),
+    path('book_success/', views.book_success, name='book_success')
 ]
