@@ -10,6 +10,7 @@ class Category(models.Model):
 # Clase para los diferentes servicios
 class Service(models.Model):
     name = models.CharField(max_length=45)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
