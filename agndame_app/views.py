@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import AppointmentForm
+from .utils import google_calendar
 
 def book_appointment(request):
     if request.method == 'POST':
