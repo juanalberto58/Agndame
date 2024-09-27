@@ -10,3 +10,6 @@ python manage.py startapp agndame_app
 Aplicar migraciones: 
 python3 manage.py makemigrations
 python3 manage.py migrate
+
+
+python3 quickstart.py

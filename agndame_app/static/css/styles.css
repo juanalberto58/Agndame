@@ -40,21 +40,6 @@ nav ul li a {
     font-size: 1.2em;
 }
 
-.banner {
-    background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702');
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.banner h2 {
-    color: white;
-    font-size: 2.5em;
-}
-
 .form-container {
     background-color: white;
     padding: 40px;
