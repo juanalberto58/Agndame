@@ -9,14 +9,17 @@ from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class GoogleCalendarManager:
     
     def __init__(self):
         self.service = self._autheticate()
+        print(self.service)
+        print('adios')
 
     # Metodo para autenticarse
-    def autheticate(self):
+    def _autheticate(self):
         """Shows basic usage of the Google Calendar API.
         Prints the start and name of the next 10 events on the user's calendar.
         """
@@ -31,15 +34,17 @@ class GoogleCalendarManager:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             else:
+                CREDENTIALS_PATH = os.path.join(BASE_DIR, '', 'utils', 'credentials.json')
+
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    "credentials.json", SCOPES
+                    CREDENTIALS_PATH, SCOPES
                 )
                 creds = flow.run_local_server(port=0)
                 # Save the credentials for the next run
             with open("token.json", "w") as token:
                 token.write(creds.to_json())
 
-            return build("calendar", "v3", credentials=creds)
+        return build("calendar", "v3", credentials=creds)
 
 
     # Metodo para mostrar eventos
@@ -70,7 +75,7 @@ class GoogleCalendarManager:
 
 
     # Metodo para crear un evento en google calendar:
-    def create_event(self, summary, start_time, end_time, timezone, attendees=None):
+    def create_event(self, summary, start_time, end_time, timezone, attendees):
 
         event = {
             'summary': summary,

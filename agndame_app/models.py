@@ -26,6 +26,7 @@ class Worker(models.Model):
 class Appointment(models.Model):
     name_client = models.CharField(max_length=100)
     lastname_client = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254)
     date = models.DateField()
     hour = models.TimeField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
