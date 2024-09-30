@@ -17,29 +17,29 @@ class GoogleCalendarManager:
 
     # Metodo para autenticarse
     def autheticate(self):
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-        else:
-        flow = InstalledAppFlow.from_client_secrets_file(
-            "credentials.json", SCOPES
-        )
-        creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open("token.json", "w") as token:
-        token.write(creds.to_json())
+        """Shows basic usage of the Google Calendar API.
+        Prints the start and name of the next 10 events on the user's calendar.
+        """
+        creds = None
+        # The file token.json stores the user's access and refresh tokens, and is
+        # created automatically when the authorization flow completes for the first
+        # time.
+        if os.path.exists("token.json"):
+            creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+        # If there are no (valid) credentials available, let the user log in.
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    "credentials.json", SCOPES
+                )
+                creds = flow.run_local_server(port=0)
+                # Save the credentials for the next run
+            with open("token.json", "w") as token:
+                token.write(creds.to_json())
 
-        return build("calendar", "v3", credentials=creds)
+            return build("calendar", "v3", credentials=creds)
 
 
     # Metodo para mostrar eventos
@@ -91,13 +91,13 @@ class GoogleCalendarManager:
 
         try:
             event = self.service.events().insert(calendarId='primary', body=event).execute()
-            print 'Event created: %s' % (event.get('htmlLink'))
+            print('Event created: %s' % (event.get('htmlLink')))
         except HttpError as error:
             print(f"An error has ocurred: {error}")
 
 
     # Metodo para actualizar un evento:
-    def update_event(self, event_id, summary=None, start_time=None, end_time=None):ç
+    def update_event(self, event_id, summary=None, start_time=None, end_time=None):
         event = self.service.events().instances(calendarId='primary', eventId=event_id).execute()
 
         if summary:
