@@ -12,4 +12,9 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 
 
-python3 quickstart.py
+Activar API de google calendar, sheet y drive
+Logearse en Google cloud console
+Activar Apis de google calendar, shett y drive
+Crear un service account
+Crear nuevas credenciales para este service account (Descargar el json y meterlo en la carpeta del proyecto)
+
