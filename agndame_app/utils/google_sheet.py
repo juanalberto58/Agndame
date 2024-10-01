@@ -9,15 +9,16 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-SAMPLE_RANGE_NAME = "Class Data!A2:E"
+SPREADSHEET_ID = "1rwPcUt0jmZAYPecYwh8WmYufC9EMc2NX9TJF2bbS968"
+RANGE_NAME = "A1:I5"
 
 class GoogleSheetManager:
     def __init__(self):
-        self.service = self._autheticate
+        self.service = self._autheticate()
 
     # Metodo para autenticarse
     def _autheticate(self):
@@ -28,8 +29,8 @@ class GoogleSheetManager:
         # The file token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists("token.json"):
-            creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+        if os.path.exists("token_sheet.json"):
+            creds = Credentials.from_authorized_user_file("token_sheet.json", SCOPES)
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
@@ -42,20 +43,21 @@ class GoogleSheetManager:
                 )
                 creds = flow.run_local_server(port=0)
                 # Save the credentials for the next run
-            with open("token.json", "w") as token:
+            with open("token_sheet.json", "w") as token:
                 token.write(creds.to_json())
 
-        return build("calendar", "v3", credentials=creds)
+        return build("sheets", "v4", credentials=creds)
         
 
-    def list_sheets(self):
+    def read_sheet(self):
         # Call the Sheets API
-        sheet = service.spreadsheets()
+        sheet = self.service.spreadsheets()
         result = (
             sheet.values()
-            .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME)
+            .get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME)
             .execute()
         )
+
         values = result.get("values", [])
 
         if not values:
