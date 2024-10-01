@@ -15,8 +15,6 @@ class GoogleCalendarManager:
     
     def __init__(self):
         self.service = self._autheticate()
-        print(self.service)
-        print('adios')
 
     # Metodo para autenticarse
     def _autheticate(self):
@@ -27,8 +25,8 @@ class GoogleCalendarManager:
         # The file token.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists("token.json"):
-            creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+        if os.path.exists("token_calendar.json"):
+            creds = Credentials.from_authorized_user_file("token_calendar.json", SCOPES)
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
@@ -41,7 +39,7 @@ class GoogleCalendarManager:
                 )
                 creds = flow.run_local_server(port=0)
                 # Save the credentials for the next run
-            with open("token.json", "w") as token:
+            with open("token_calendar.json", "w") as token:
                 token.write(creds.to_json())
 
         return build("calendar", "v3", credentials=creds)

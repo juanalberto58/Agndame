@@ -14,7 +14,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = "1rwPcUt0jmZAYPecYwh8WmYufC9EMc2NX9TJF2bbS968"
-RANGE_NAME = "A1:I5"
 
 class GoogleSheetManager:
     def __init__(self):
@@ -49,12 +48,17 @@ class GoogleSheetManager:
         return build("sheets", "v4", credentials=creds)
         
 
-    def read_sheet(self):
+    # Leer hoja de calculo
+    # range:
+    #   'Sheet1': Devuelve todos los valores de la hoja Sheet1
+    #   'A1:I5' : Devuelve todos los valores dentro del rango especificado
+    #   'Sheet1!A:A' : Hace referencia a todas las celdas de la primera columna de la Hoja1
+    def read_sheet_range(self, range):
         # Call the Sheets API
         sheet = self.service.spreadsheets()
         result = (
             sheet.values()
-            .get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME)
+            .get(spreadsheetId=SPREADSHEET_ID, range=range)
             .execute()
         )
 
@@ -63,10 +67,28 @@ class GoogleSheetManager:
         if not values:
             print("No data found.")
             return
+        else:
+            return values
 
-        print("Name, Major:")
-        for row in values:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print(f"{row[0]}, {row[4]}")
+    # Insertar datos en la hoja de calculo
+    def insert_data_sheet(self, range, data):
+        print('insertando')
+
+        data = {
+            'values': [data]
+        }
+
+        sheet = self.service.spreadsheets()
+        result = (
+            sheet.values()
+            .append(spreadsheetId=SPREADSHEET_ID, range=range, valueInputOption="USER_ENTERED", insertDataOption='INSERT_ROWS', body=data)
+            .execute()
+        )
+
+        if result:
+            print("Insertados con exito.")
+            return True
+        else:
+            return 
 
 

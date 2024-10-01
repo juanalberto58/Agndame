@@ -17,4 +17,4 @@ Logearse en Google cloud console
 Activar Apis de google calendar, shett y drive
 Crear un service account
 Crear nuevas credenciales para este service account (Descargar el json y meterlo en la carpeta del proyecto)
-
+Para el caso de google sheet, compartir el correo del service account con la hoja de google sheet
