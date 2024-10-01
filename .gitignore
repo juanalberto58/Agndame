@@ -2,3 +2,4 @@ agndame_app/utils/credentials.json
 token.json
 token_sheet.json
 token_calendar.json
+.env
