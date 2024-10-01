@@ -72,7 +72,6 @@ class GoogleSheetManager:
 
     # Insertar datos en la hoja de calculo
     def insert_data_sheet(self, range, data):
-        print('insertando')
 
         data = {
             'values': [data]
