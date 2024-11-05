@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vb!62m-2c!bt28k*tp#qaqkdz)6y_$@1poqyf6)xm!76wlsh60
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*.railway.app',]
 
 
 # Application definition
@@ -118,7 +118,6 @@ USE_TZ = True
 
 STATIC_URL = 'agndame_app/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'agndame_app/static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
