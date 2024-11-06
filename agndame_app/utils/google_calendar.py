@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class GoogleCalendarManager:
     
     def __init__(self):
-        self.service = self._autheticate()
+        self.service = self._authenticate()
 
     # Metodo para autenticarse
      def _authenticate(self):
