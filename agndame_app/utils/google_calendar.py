@@ -17,28 +17,27 @@ class GoogleCalendarManager:
         self.service = self._autheticate()
 
     # Metodo para autenticarse
-    def _autheticate(self):
-        """Shows basic usage of the Google Calendar API.
-        Prints the start and name of the next 10 events on the user's calendar.
-        """
+     def _authenticate(self):
+        """Authenticates the user and creates the Google Calendar service."""
         creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
-        if os.path.exists("token_calendar.json"):
-            creds = Credentials.from_authorized_user_file("token_calendar.json", SCOPES)
-        # If there are no (valid) credentials available, let the user log in.
+        # Cargar las credenciales desde la variable de entorno en lugar de un archivo
+        google_credentials = os.getenv("GOOGLE_CREDENTIALS")
+
+        if google_credentials:
+            creds_dict = json.loads(google_credentials)
+            creds = Credentials.from_authorized_user_info(info=creds_dict, scopes=SCOPES)
+
+        # Si no existen las credenciales o son inválidas, iniciamos el proceso de autenticación
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             else:
-                CREDENTIALS_PATH = os.path.join(BASE_DIR, '', 'utils', 'credentials.json')
-
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    CREDENTIALS_PATH, SCOPES
+                    "path_to_your_credentials.json", SCOPES  # Usa credentials.json localmente si es necesario
                 )
                 creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
+
+            # Guarda las credenciales de acceso para la próxima vez
             with open("token_calendar.json", "w") as token:
                 token.write(creds.to_json())
 
