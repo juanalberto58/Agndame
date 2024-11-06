@@ -16,11 +16,9 @@ class GoogleCalendarManager:
     def __init__(self):
         self.service = self._autheticate()
 
-    # Metodo para autenticarse
-     def _autheticate(self):
-        """Authenticates the user and creates the Google Calendar service."""
+    # Método para autenticarse
+    def _authenticate(self):
         creds = None
-        # Cargar las credenciales desde la variable de entorno en lugar de un archivo
         google_credentials = os.getenv("GOOGLE_CREDENTIALS")
 
         if google_credentials:
