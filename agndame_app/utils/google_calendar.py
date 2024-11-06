@@ -17,7 +17,7 @@ class GoogleCalendarManager:
         self.service = self._autheticate()
 
     # Método para autenticarse
-    def _authenticate(self):
+    def _autheticate(self):
         creds = None
         google_credentials = os.getenv("GOOGLE_CREDENTIALS")
 
