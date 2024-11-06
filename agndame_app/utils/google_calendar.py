@@ -38,7 +38,7 @@ class GoogleCalendarManager:
                     CREDENTIALS_PATH, SCOPES
                 )
                 creds = flow.run_local_server(port=0)
-                # Save the credentials for the next run
+            # Save the credentials for the next run
             with open("token_calendar.json", "w") as token:
                 token.write(creds.to_json())
 
