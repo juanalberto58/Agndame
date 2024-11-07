@@ -1,5 +1,5 @@
 # agndame
-Aplicacion en Django para la gestion de citas de una peluqueria utilizando las apis de Google Calendar y Google sheet
+Aplicacion en Django para la gestion de citas de una peluqueria utilizando las apis de Google Calendar y Google sheet y desplegado con railway
 
 Formulario de reserva:
 
