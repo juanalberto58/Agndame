@@ -1,12 +1,16 @@
 # agndame
-Aplicacion en Django para la gestion de citas de una peluqueria utilizando las apis de Google Calendar y google sheet
+Aplicacion en Django para la gestion de citas de una peluqueria utilizando las apis de Google Calendar y Google sheet
 
 Formulario de reserva:
-![image](https://github.com/user-attachments/assets/434d5582-a1d1-4df4-928d-f52065034b59)
 
+
+![image](https://github.com/user-attachments/assets/434d5582-a1d1-4df4-928d-f52065034b59)
 ![image](https://github.com/user-attachments/assets/6b5822ac-0af1-415f-a6f9-b08c42999a50)
 
 Al reservar la cita 
+
+
+
 ![image](https://github.com/user-attachments/assets/2e74f3f7-3480-40dd-8825-7e28a88ff935)
 
 Genera un evento en google calendar el correo de la peluqueria con la cita
