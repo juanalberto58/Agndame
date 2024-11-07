@@ -8,7 +8,8 @@ class EmailManager:
         sender_email_address = "pruebaapidjango@gmail.com"
         receiver_email_address = {appointment.email}
         email_smtp = "smtp.gmail.com"
-        email_password = config('EMAIL_PASSWORD')
+        # email_password = config('EMAIL_PASSWORD')
+        email_password = os.getenv("EMAIL_PASSWORD")
 
         message = EmailMessage()
 
