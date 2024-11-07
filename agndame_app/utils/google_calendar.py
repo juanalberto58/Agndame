@@ -26,6 +26,7 @@ class GoogleCalendarManager:
         refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
 
         if client_id and client_secret and refresh_token:
+            
             creds = Credentials(
                 None,
                 refresh_token=refresh_token,

@@ -26,7 +26,7 @@ class GoogleSheetManager:
 
         client_id = os.getenv("GOOGLE_CLIENT_ID")
         client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
-        refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
+        refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN_SHEETS")
 
         if client_id and client_secret and refresh_token:
             
@@ -35,7 +35,8 @@ class GoogleSheetManager:
                 refresh_token=refresh_token,
                 client_id=client_id,
                 client_secret=client_secret,
-                token_uri="https://oauth2.googleapis.com/token"
+                token_uri="https://oauth2.googleapis.com/token",
+                scopes=SCOPES
             )
 
             if creds and creds.expired and creds.refresh_token:
