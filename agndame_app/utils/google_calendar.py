@@ -20,25 +20,22 @@ class GoogleCalendarManager:
     # Método para autenticarse
     def _autheticate(self):
         creds = None
-        google_credentials = os.getenv("GOOGLE_CREDENTIALS")
 
-        if google_credentials:
-            creds_dict = json.loads(google_credentials)
-            creds = Credentials.from_authorized_user_info(info=creds_dict, scopes=SCOPES)
+        client_id = os.getenv("GOOGLE_CLIENT_ID")
+        client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
+        refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
 
-        # Si no existen las credenciales o son inválidas, iniciamos el proceso de autenticación
-        if not creds or not creds.valid:
+        if client_id and client_secret and refresh_token:
+            creds = Credentials(
+                None,
+                refresh_token=refresh_token,
+                client_id=client_id,
+                client_secret=client_secret,
+                token_uri="https://oauth2.googleapis.com/token"
+            )
+
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    "path_to_your_credentials.json", SCOPES  # Usa credentials.json localmente si es necesario
-                )
-                creds = flow.run_local_server(port=0)
-
-            # Guarda las credenciales de acceso para la próxima vez
-            with open("token_calendar.json", "w") as token:
-                token.write(creds.to_json())
 
         return build("calendar", "v3", credentials=creds)
 
