@@ -1,4 +1,5 @@
 import smtplib 
+import os.path
 from email.message import EmailMessage 
 from decouple import config
 
