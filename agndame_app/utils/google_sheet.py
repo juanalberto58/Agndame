@@ -21,29 +21,25 @@ class GoogleSheetManager:
 
     # Metodo para autenticarse
     def _autheticate(self):
-        """Shows basic usage of the Google Calendar API.
-        Prints the start and name of the next 10 events on the user's calendar.
-        """
+
         creds = None
-        # The file token.json stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
-        if os.path.exists("token_sheet.json"):
-            creds = Credentials.from_authorized_user_file("token_sheet.json", SCOPES)
-        # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
+
+        client_id = os.getenv("GOOGLE_CLIENT_ID")
+        client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
+        refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
+
+        if client_id and client_secret and refresh_token:
+            
+            creds = Credentials(
+                None,
+                refresh_token=refresh_token,
+                client_id=client_id,
+                client_secret=client_secret,
+                token_uri="https://oauth2.googleapis.com/token"
+            )
+
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
-            else:
-                CREDENTIALS_PATH = os.path.join(BASE_DIR, '', 'utils', 'credentials.json')
-
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    CREDENTIALS_PATH, SCOPES
-                )
-                creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open("token_sheet.json", "w") as token:
-                token.write(creds.to_json())
 
         return build("sheets", "v4", credentials=creds)
         
